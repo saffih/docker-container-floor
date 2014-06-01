@@ -1,0 +1,13 @@
+ifloor:
+    image: saffi/docker-container-floor
+    ports:
+      - "2223:22"
+ 
+
+
+floor:
+   build: .
+   ports:
+      - "2222:22"
+ 
+
