@@ -1,5 +1,5 @@
-#FROM saffi/docker-container-build
-FROM ubuntu:14.04
+FROM saffi/docker-container-build
+#FROM ubuntu:14.04
 
 MAINTAINER Saffi <saffi.h@gmail.com>
 ENV container docker
@@ -7,7 +7,7 @@ ENV container docker
 # Add resolv.conf
 #nameserver 8.8.8.8
 #nameserver 8.8.8.4
-ADD code/etc /etc
+ADD code/etc/resolv.conf /etc/resolv.conf
 
 # build base python and supervisor. opensssh
 # apped with apt-get clean for reducing image size in build.
@@ -18,8 +18,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq && \
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server pwgen \
     && apt-get clean
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+   python2.7 python-pip python2.7-dev  && apt-get clean
 
-#RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
+
+ADD code/etc /etc
 
 # to do 
 RUN echo 'root:changeme' > /root/passwdfile \
@@ -36,8 +39,6 @@ RUN echo 'configure sshd' \
     && echo 'sshd_config:' \
     && cat /etc/ssh/sshd_config
 
-#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-#    python2.7 python-pip python2.7-dev  && apt-get clean
 
 # force bash to start it all WITHIN bash. AND trap EXIT so we loop forever on serverd  on break unload
 RUN echo ". /etc/bashload/hook.sh" >> /etc/bash.bashrc && \
