@@ -11,7 +11,8 @@ MAINTAINER Saffi <saffi.h@gmail.com>
 
 # add python 2.7
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-   python2.7 python2.7-dev \
+   software-properties-common &&
+   apt-get install -y python2.7 python2.7-dev \
    python-setuptools python-pip python-software-properties \
    && apt-get clean
 
