@@ -1,5 +1,8 @@
 FROM saffi/build
 MAINTAINER Saffi <saffi.h@gmail.com>
+# Monolitic docker base for migration of existing setup and old
+# style environments.
+# practical but realy misses the point.
 
 # build base python . opensssh.
 # apped with apt-get clean for reducing image size in build
