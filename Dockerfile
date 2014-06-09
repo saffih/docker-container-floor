@@ -1,4 +1,4 @@
-FROM saffi/docker-container-build
+FROM saffi/build
 MAINTAINER Saffi <saffi.h@gmail.com>
 
 # build base python . opensssh.
