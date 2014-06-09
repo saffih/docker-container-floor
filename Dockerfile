@@ -13,7 +13,7 @@ MAINTAINER Saffi <saffi.h@gmail.com>
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
    software-properties-common \
    && apt-get install -y python2.7 python2.7-dev \
-   python-setuptools python-pip python-software-properties \
+   python-setuptools python-pip python-software-properties alien  \
    && apt-get clean
 
 # add running the ssh daemon
