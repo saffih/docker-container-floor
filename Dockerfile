@@ -4,7 +4,7 @@ MAINTAINER Saffi <saffi.h@gmail.com>
 # build base python . opensssh.
 # apped with apt-get clean for reducing image size in build
 
-# done in build image
+# done in docker-container-build image
 # install sshd without startup or password settings.
 #RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server pwgen \
 #    && apt-get clean
@@ -16,10 +16,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
    python-setuptools python-pip python-software-properties \
    && apt-get clean
 
-# add the ssh daemon
+# add running the ssh daemon
 ADD code/etc /etc
 
-# to do  change pass for real deployment
+# change pass to "changeme"
+# todo: change again - for dev phase only.
 RUN echo 'root:changeme' > /root/passwdfile \
   && cat /root/passwdfile | chpasswd
 
@@ -37,12 +38,10 @@ RUN echo 'configure sshd' \
     
 
 #VOLUME ["/var/log"]
-#VOLUME ["/etc/bashload"]
 
 # SSH Ready - if service is on.
 EXPOSE 22
-
 #######################################
-# inherits
+# inherits that from  docker-container-build
 #CMD ["-c", "/etc/supervisor/start.sh"]
 #ENTRYPOINT ["bash", "--verbose", "-i","-s"]
